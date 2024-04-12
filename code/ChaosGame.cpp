@@ -1,20 +1,16 @@
 // Include important C++ libraries here
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <iostream>
-#include <sstream>
-#include <vector>
-
+#include "mainMenu.h"
 // Make code easier to type with "using namespace"
-using namespace sf;
-using namespace std;
+
 
 int main()
 {
     // Create a video mode object
 	VideoMode vm(1920, 1080);
 	// Create and open a window for the game
-	RenderWindow window(vm, "Chaos Game", Style::Default);
+    RenderWindow MENU(vm, "Menu", Style::Default);
+    MainMenu mainMenu(MENU.getSize().x, MENU.getSize().y);
+	
     Text myText;
     Text Points;
     Font font;
@@ -34,8 +30,31 @@ int main()
 
     vector<Vector2f> vertices;
     vector<Vector2f> points;
+    while(MENU.isOpen()) {
+        MENU.clear();
+        mainMenu.draw(MENU);
+        MENU.display();
+        Event aevent;
+        while(MENU.pollEvent(aevent)) {
+            if(aevent.type == Event::Closed) {
+                MENU.close();
+            }
+            if(aevent.type == Event::KeyReleased) {
+                if (aevent.key.code == Keyboard::Up) {
+                    mainMenu.moveUp();
+                    break;
+                }
 
-	while (window.isOpen())
+                
+                if (aevent.key.code == Keyboard::Down) {
+                    mainMenu.moveDown();
+                    break;
+                }
+                
+                if (aevent.key.code == Keyboard::Return) {
+                    
+                RenderWindow window(vm, "Chaos Game", Style::Default);
+                while (window.isOpen())
 	{
         /*
 		****************************************
@@ -107,6 +126,7 @@ int main()
         window.draw(Points);
         if(vertices.size() == 1) {
             myText.move(2000,2000);
+            Points.move(2000,2000);
         }
         for(size_t i = 0; i < vertices.size(); i++)
         {
@@ -123,4 +143,17 @@ int main()
         }
         window.display();
     }
+                }
+
+            }
+            if (aevent.type == Event::KeyReleased) {
+                if (aevent.key.code == Keyboard::Escape) {
+                    MENU.close();
+                }
+
+            }
+        }
+    }
+
+	
 }
