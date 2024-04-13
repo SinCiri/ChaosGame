@@ -7,10 +7,11 @@
 #include <sstream>
 #include <vector>
 
+
 using namespace sf;
 using namespace std;
 
-const int MAX_MAIN_MENU = 2;
+const int MAX_MAIN_MENU = 3;
 
 class MainMenu {
 public:
@@ -26,11 +27,18 @@ public:
         return mainMenuSelected;
     }
 
-    //~MainMenu();
+    Font getFont() {
+        return font;
+    }
+
+ 
 private:
     int mainMenuSelected;
     Font font;
     Text mainMenu[MAX_MAIN_MENU];
+    Texture MMtexture;
+    Sprite spriteBackGround;
+    Text MMtext;
 };
 
 

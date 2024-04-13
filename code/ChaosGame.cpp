@@ -1,159 +1,159 @@
-// Include important C++ libraries here
+#include "SettingsMenu.h"
 #include "mainMenu.h"
-// Make code easier to type with "using namespace"
 
-
-int main()
-{
-    // Create a video mode object
+int main() {
 	VideoMode vm(1920, 1080);
-	// Create and open a window for the game
-    RenderWindow MENU(vm, "Menu", Style::Default);
-    MainMenu mainMenu(MENU.getSize().x, MENU.getSize().y);
-	
-    Text myText;
-    Text Points;
-    Font font;
-	font.loadFromFile("font1.ttf");
-    Points.setFont(font);
-    myText.setFont(font);
-    myText.setCharacterSize(45);
-    myText.setString("Welcome to Chaos Game");
-    Points.setString("Choose 3 points to make a Triangle");
-    FloatRect textRect = myText.getLocalBounds();
-	myText.setOrigin(textRect.left +
-		textRect.width / 2.0f,
-		textRect.top +
-		textRect.height / 2.0f);
-	myText.setPosition(1920 / 2.5f, 1080 / 2.5f);
-    Points.setPosition(20,20);
+	RenderWindow MENU(vm, "Main Menu", Style::Default);
+	MainMenu mainMenu(MENU.getSize().x, MENU.getSize().y);
 
-    vector<Vector2f> vertices;
-    vector<Vector2f> points;
-    while(MENU.isOpen()) {
-        MENU.clear();
-        mainMenu.draw(MENU);
-        MENU.display();
-        Event aevent;
-        while(MENU.pollEvent(aevent)) {
-            if(aevent.type == Event::Closed) {
-                MENU.close();
-            }
-            if(aevent.type == Event::KeyReleased) {
-                if (aevent.key.code == Keyboard::Up) {
-                    mainMenu.moveUp();
-                    break;
-                }
+	Color triangleColor = Color::Red;
 
-                
-                if (aevent.key.code == Keyboard::Down) {
-                    mainMenu.moveDown();
-                    break;
-                }
-                
-                if (aevent.key.code == Keyboard::Return) {
-                    
-                RenderWindow window(vm, "Chaos Game", Style::Default);
-                while (window.isOpen())
-	{
-        /*
-		****************************************
-		Handle the players input
-		****************************************
-		*/
-        Event event;
-		while (window.pollEvent(event))
-		{
-            if (event.type == Event::Closed)
-            {
-				// Quit the game when the window is closed
-				window.close();
-            }
-            if (event.type == sf::Event::MouseButtonPressed)
-            {
-                if (event.mouseButton.button == sf::Mouse::Left)
-                {
-                    std::cout << "the left button was pressed" << std::endl;
-                    std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-                    std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+	vector<Vector2f> vertices;
+	vector<Vector2f> points;
 
-                    if(vertices.size() < 3)
-                    {
-                        vertices.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
-                    }
-                    else if(points.size() == 0)
-                    {
-                        ///fourth click
-                        ///push back to points vector
-                        points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
-                    }
-                }
-            }
-        }
-        if (Keyboard::isKeyPressed(Keyboard::Escape))
-		{
-			window.close();
+
+	while (MENU.isOpen()) {
+		Event event;
+		//render mainMenu and ask for event
+		while (MENU.pollEvent(event)) {
+			//when menu is closed close the game
+			if (event.type == Event::Closed) {
+				MENU.close();
+			}
+			//if key up is pressed move menu option up.
+			if (event.type == Event::KeyPressed) {
+				if (event.key.code == Keyboard::Up) {
+					mainMenu.moveUp();
+					break;
+				}
+				//if key down is pressed move down
+				if (event.key.code == Keyboard::Down) {
+					mainMenu.moveDown();
+					break;
+				}
+				//if escape is pressed quit game
+				if (event.key.code == Keyboard::Escape) {
+					MENU.close();
+				}
+				//if enter is selected render play window
+				if (event.key.code == Keyboard::Return) {
+					//render windows when play presses enter
+					RenderWindow play(vm, "Chaos Game");
+					RenderWindow settings(vm, "Settings");
+					//check the item selected
+					int x = mainMenu.MainMenuSelected();
+					//if play is selected start the game loop
+					if (x == 0) {
+						///////////////////////////////////////////////////////////////////////////////
+						//							main game loop									 //
+						///////////////////////////////////////////////////////////////////////////////
+						while (play.isOpen()) {
+							//look for new event?
+							Event aevent;
+							while (play.pollEvent(aevent)) {
+								if (aevent.type == Event::KeyPressed) {
+									if (aevent.key.code == Keyboard::Escape) {
+										play.close();
+									}
+								}
+								if (aevent.type == Event::Closed) {
+									play.close();
+								}
+
+								if (aevent.type == Event::MouseButtonPressed) {
+									if (aevent.mouseButton.button == Mouse::Left) {
+										cout << "Left click registered at: " << endl;
+										cout << "mouse x: " << aevent.mouseButton.x << endl;
+										cout << "mouse y: " << aevent.mouseButton.y << endl;
+
+										if (vertices.size() < 3) {
+											vertices.push_back(Vector2f(aevent.mouseButton.x, aevent.mouseButton.y));
+										}
+										else if (points.size() == 0) {
+											//register forth click to begin
+											points.push_back(Vector2f(aevent.mouseButton.x, aevent.mouseButton.y));
+										}
+									}
+								}
+								
+							}
+								if (points.size() > 0) {
+									for (int i = 0; i < 50; i++) {
+										double x, y;
+										int lastPoint = points.size() - 1;
+										int randPoint = rand() % 3;
+										x = (vertices.at(randPoint).x + points.at(lastPoint).x) / 2;
+										y = (vertices.at(randPoint).y + points.at(lastPoint).y) / 2;
+										points.push_back(Vector2f(x, y));
+									}
+								}
+								//clear previos frame
+								settings.close();
+								play.clear();
+								//draw 
+								for (size_t i = 0; i < vertices.size(); i++)
+								{
+									CircleShape circ1(3, 40);
+									circ1.setPosition(Vector2f(vertices[i].x, vertices[i].y));
+									circ1.setFillColor(Color::Magenta);
+									play.draw(circ1);
+								}
+								for (size_t i = 0; i < points.size(); i++) {
+									CircleShape circ(2, 30);
+									circ.setPosition(Vector2f(points[i].x, points[i].y));
+									circ.setFillColor(Color::Red);
+									play.draw(circ);
+								}
+								
+								//display
+								play.display();
+							
+						}
+					}
+					//if x == 1
+					//start the settings menu
+					else if (x == 1) {
+						while (settings.isOpen()) {
+							Event aevent;
+							while (settings.pollEvent(aevent)) {
+								if (aevent.type == Event::KeyPressed) {
+									if (aevent.key.code == Keyboard::Escape) {
+										settings.close();
+									}
+								}
+								if (aevent.type == Event::Closed) {
+									settings.close();
+								}
+							}
+							settings.clear();
+							settings.display();
+						}
+
+					}
+
+					//while menu is open
+						//look for input
+						//move up/down
+						//left and right to change the option
+						//enter to confirm the option
+						//escape to close
+						//draw the menu and clear the others and close
+				
+
+
+					//exit option
+					else if (x == 2) {
+						MENU.close();
+						break;
+					}
+					  
+
+				}
+			}
+			MENU.clear();
+			mainMenu.draw(MENU);
+			MENU.display();
 		}
-        /*
-		****************************************
-		Update
-		****************************************
-		*/
-
-        if(points.size() > 0)
-        {
-            ///generate more point(s)
-            ///select random vertex
-            ///calculate midpoint between random vertex and the last point in the vector
-            ///push back the newly generated coord.
-            for (int i = 0; i < 50; i++) {
-                double x,y;
-                int lastPoint = points.size()-1;
-                int randPoint = rand()%3;
-                x = (vertices.at(randPoint).x + points.at(lastPoint).x)/2;
-                y = (vertices.at(randPoint).y + points.at(lastPoint).y)/2;
-                points.push_back(Vector2f(x,y));
-            }
-        }
-
-        /*
-		****************************************
-		Draw
-		****************************************
-		*/
-        window.clear();
-        window.draw(myText);
-        window.draw(Points);
-        if(vertices.size() == 1) {
-            myText.move(2000,2000);
-            Points.move(2000,2000);
-        }
-        for(size_t i = 0; i < vertices.size(); i++)
-        {
-            CircleShape circ1(2,30);
-            circ1.setPosition(Vector2f(vertices[i].x, vertices[i].y));
-            circ1.setFillColor(Color::Green);
-            window.draw(circ1);
-        }
-        for (size_t i = 0; i <  points.size(); i++) {
-            CircleShape circ(2,30);
-            circ.setPosition(Vector2f(points[i].x, points[i].y));
-            circ.setFillColor(Color::Red);
-            window.draw(circ);
-        }
-        window.display();
-    }
-                }
-
-            }
-            if (aevent.type == Event::KeyReleased) {
-                if (aevent.key.code == Keyboard::Escape) {
-                    MENU.close();
-                }
-
-            }
-        }
-    }
-
-	
+	}
+	return 0;
 }
