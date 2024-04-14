@@ -1,4 +1,4 @@
-#include "../SettingsMenu.h"
+#include "SettingsMenu.h"
 #include "mainMenu.h"
 
 int main() {
@@ -8,8 +8,8 @@ int main() {
 	MainMenu mainMenu(MENU.getSize().x, MENU.getSize().y);
 	SettingsMenu settingsMenu(MENU.getSize().x, MENU.getSize().y);
 
-	Text prompt("Select 3 dots on the screen then watch the magic happen", mainMenu.getFont(), 75);
-	prompt.setPosition(500, 100);
+	
+	
 	vector<Vector2f> vertices;
 	vector<Vector2f> points;
 

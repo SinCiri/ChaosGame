@@ -12,7 +12,7 @@ MainMenu::MainMenu(float height, float width) {
     spriteBackGround.setPosition(0, 0);
 
     MMtext.setFont(font);
-    MMtext.setColor(Color::White);
+    //MMtext.setColor(Color::White);
     MMtext.setPosition(600, 100);
     MMtext.setCharacterSize(100);
     MMtext.setString("Welcome to Chaos Game");

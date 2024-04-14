@@ -8,25 +8,25 @@ SettingsMenu::SettingsMenu(float height, float width) {
     if (!font.loadFromFile("font1.ttf")) {
         cout << "Font not found" << endl;
     }
-    MenuText.setColor(Color::White);
+    MenuText.setFillColor(Color::White);
     MenuText.setCharacterSize(75);
     MenuText.setFont(font);
     MenuText.setPosition(200, 100);
     MenuText.setString("Choose Menu Options:");
 
-    MenuChoices[0][0].setColor(Color::White);
+    MenuChoices[0][0].setFillColor(Color::White);
     MenuChoices[0][0].setFont(font);
     MenuChoices[0][0].setCharacterSize(50);
     MenuChoices[0][0].setPosition(200, 300);
     MenuChoices[0][0].setString("Speed: ");
 
-    MenuChoices[1][0].setColor(Color::White);
+    MenuChoices[1][0].setFillColor(Color::White);
     MenuChoices[1][0].setFont(font);
     MenuChoices[1][0].setCharacterSize(50);
     MenuChoices[1][0].setPosition(200, 450);
     MenuChoices[1][0].setString("Triangle Color: ");
 
-    MenuChoices[2][0].setColor(Color::White);
+    MenuChoices[2][0].setFillColor(Color::White);
     MenuChoices[2][0].setFont(font);
     MenuChoices[2][0].setCharacterSize(50);
     MenuChoices[2][0].setPosition(200, 600);
@@ -36,56 +36,56 @@ SettingsMenu::SettingsMenu(float height, float width) {
 
 
     //Settings Options for speed
-    MenuChoices[0][1].setColor(Color::White);
+    MenuChoices[0][1].setFillColor(Color::White);
     MenuChoices[0][1].setFont(font);
     MenuChoices[0][1].setCharacterSize(50);
     MenuChoices[0][1].setPosition(400, 300);
     MenuChoices[0][1].setString("1");
 
-    MenuChoices[0][2].setColor(Color::White);
+    MenuChoices[0][2].setFillColor(Color::White);
     MenuChoices[0][2].setFont(font);
     MenuChoices[0][2].setCharacterSize(50);
     MenuChoices[0][2].setPosition(500, 300);
     MenuChoices[0][2].setString("2");
 
-    MenuChoices[0][3].setColor(Color::White);
+    MenuChoices[0][3].setFillColor(Color::White);
     MenuChoices[0][3].setFont(font);
     MenuChoices[0][3].setCharacterSize(50);
     MenuChoices[0][3].setPosition(600, 300);
     MenuChoices[0][3].setString("3");
 
     //options for colors
-    MenuChoices[1][1].setColor(Color::White);
+    MenuChoices[1][1].setFillColor(Color::White);
     MenuChoices[1][1].setFont(font);
     MenuChoices[1][1].setPosition(600, 450);
     MenuChoices[1][1].setCharacterSize(50);
     MenuChoices[1][1].setString("Red");
 
-    MenuChoices[1][2].setColor(Color::White);
+    MenuChoices[1][2].setFillColor(Color::White);
     MenuChoices[1][2].setFont(font);
     MenuChoices[1][2].setPosition(750, 450);
     MenuChoices[1][2].setCharacterSize(50);
     MenuChoices[1][2].setString("Magenta");
 
-    MenuChoices[1][3].setColor(Color::White);
+    MenuChoices[1][3].setFillColor(Color::White);
     MenuChoices[1][3].setFont(font);
     MenuChoices[1][3].setPosition(1000, 450);
     MenuChoices[1][3].setCharacterSize(50);
     MenuChoices[1][3].setString("Cyan");
 
-    MenuChoices[2][1].setColor(Color::White);
+    MenuChoices[2][1].setFillColor(Color::White);
     MenuChoices[2][1].setFont(font);
     MenuChoices[2][1].setPosition(600, 600);
     MenuChoices[2][1].setCharacterSize(50);
     MenuChoices[2][1].setString("White");
 
-    MenuChoices[2][2].setColor(Color::White);
+    MenuChoices[2][2].setFillColor(Color::White);
     MenuChoices[2][2].setFont(font);
     MenuChoices[2][2].setPosition(750, 600);
     MenuChoices[2][2].setCharacterSize(50);
     MenuChoices[2][2].setString("Blue");
 
-    MenuChoices[2][3].setColor(Color::White);
+    MenuChoices[2][3].setFillColor(Color::White);
     MenuChoices[2][3].setFont(font);
     MenuChoices[2][3].setPosition(950, 600);
     MenuChoices[2][3].setCharacterSize(50);
