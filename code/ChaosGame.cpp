@@ -7,12 +7,22 @@ int main() {
 	RenderWindow MENU(vm, "Main Menu", Style::Default);
 	MainMenu mainMenu(MENU.getSize().x, MENU.getSize().y);
 	SettingsMenu settingsMenu(MENU.getSize().x, MENU.getSize().y);
-
 	
 	
 	vector<Vector2f> vertices;
 	vector<Vector2f> points;
 
+	//set up tutorial text
+	sf::Text prompt;
+	sf::Font font;
+	if (!font.loadFromFile("font1.ttf")) {
+		cout << "Font not found" << endl;
+	}
+	prompt.setString("Click 3 spots on the screen to create a triangle\n Click once more to start");
+	prompt.setFont(font);
+	prompt.setCharacterSize(40);
+	prompt.setFillColor(Color::White);
+	prompt.setPosition(400, 100);
 
 	//set up sound effects
 	sf::Sound menuSound;
@@ -34,16 +44,16 @@ int main() {
 	//set up music
 	sf::Music menuMusic;
 	if (!menuMusic.openFromFile("menuMusic.wav")) { cout << "not loading menu music"; }
-	menuMusic.setVolume(45.f);
+	menuMusic.setVolume(30.f);
 	menuMusic.setLoop(true);
 
 	sf::Music gameMusic;
 	if(!gameMusic.openFromFile("gameMusic.ogg")) { cout << "not loading game music"; }
-	gameMusic.setVolume(45.f);
+	gameMusic.setVolume(30.f);
 	gameMusic.setLoop(true);
 
 	menuMusic.play();
-
+	
 
 	while (MENU.isOpen()) {
 		Event event;
@@ -111,7 +121,6 @@ int main() {
 										
 
 										if (vertices.size() < 3) {
-											
 											waterDrop.play();
 											vertices.push_back(Vector2f(aevent.mouseButton.x, aevent.mouseButton.y));
 										}
@@ -141,10 +150,11 @@ int main() {
 
 								//clear previos frame
 								settings.close();
-								
-								play.clear();
-								//play.draw(prompt);
+
 								//draw 
+								play.clear();
+								play.draw(prompt);
+								
 								for (size_t i = 0; i < vertices.size(); i++)
 								{
 									CircleShape circ1(3, 40);
