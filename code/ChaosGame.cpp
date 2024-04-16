@@ -26,7 +26,7 @@ int main() {
 	prompt.setFont(font);
 	prompt.setCharacterSize(40);
 	prompt.setFillColor(Color::White);
-	prompt.setPosition(400, 100);
+	prompt.setPosition(400, 300);
 
 	//set up sound effects
 	sf::Sound menuSound;
