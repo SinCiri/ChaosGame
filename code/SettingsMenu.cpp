@@ -8,6 +8,12 @@ SettingsMenu::SettingsMenu(float height, float width) {
     if (!font.loadFromFile("font1.ttf")) {
         cout << "Font not found" << endl;
     }
+    if (!BGtexture.loadFromFile("MMtexture.png")) {
+        cout << "Background texture not found" << endl;
+    }
+
+    spriteBackGround.setTexture(BGtexture);
+    spriteBackGround.setPosition(0, 0);
     MenuText.setFillColor(Color::White);
     MenuText.setCharacterSize(75);
     MenuText.setFont(font);
@@ -39,19 +45,19 @@ SettingsMenu::SettingsMenu(float height, float width) {
     MenuChoices[0][1].setFillColor(Color::White);
     MenuChoices[0][1].setFont(font);
     MenuChoices[0][1].setCharacterSize(50);
-    MenuChoices[0][1].setPosition(400, 300);
+    MenuChoices[0][1].setPosition(650, 300);
     MenuChoices[0][1].setString("1");
 
     MenuChoices[0][2].setFillColor(Color::White);
     MenuChoices[0][2].setFont(font);
     MenuChoices[0][2].setCharacterSize(50);
-    MenuChoices[0][2].setPosition(500, 300);
+    MenuChoices[0][2].setPosition(850, 300);
     MenuChoices[0][2].setString("2");
 
     MenuChoices[0][3].setFillColor(Color::White);
     MenuChoices[0][3].setFont(font);
     MenuChoices[0][3].setCharacterSize(50);
-    MenuChoices[0][3].setPosition(600, 300);
+    MenuChoices[0][3].setPosition(1050, 300);
     MenuChoices[0][3].setString("3");
 
     //options for colors
@@ -73,6 +79,8 @@ SettingsMenu::SettingsMenu(float height, float width) {
     MenuChoices[1][3].setCharacterSize(50);
     MenuChoices[1][3].setString("Cyan");
 
+
+    //more color options
     MenuChoices[2][1].setFillColor(Color::White);
     MenuChoices[2][1].setFont(font);
     MenuChoices[2][1].setPosition(600, 600);
@@ -81,7 +89,7 @@ SettingsMenu::SettingsMenu(float height, float width) {
 
     MenuChoices[2][2].setFillColor(Color::White);
     MenuChoices[2][2].setFont(font);
-    MenuChoices[2][2].setPosition(750, 600);
+    MenuChoices[2][2].setPosition(775, 600);
     MenuChoices[2][2].setCharacterSize(50);
     MenuChoices[2][2].setString("Blue");
 
@@ -199,6 +207,7 @@ void SettingsMenu::setSpeed(int x, int y) {
     
 }
 void SettingsMenu::draw(RenderWindow& window) {
+    window.draw(spriteBackGround);
     window.draw(MenuText);
     for (int i = 0; i < HEIGHT; ++i) {
         for (int j = 0; j < WIDTH; j++) {

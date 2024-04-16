@@ -46,4 +46,8 @@ private:
 	Color VerColor;
 	//2d array of options
 	Text MenuChoices[HEIGHT][WIDTH];
+	//background Sprite
+	Sprite spriteBackGround;
+	//background texture
+	Texture BGtexture;
 };

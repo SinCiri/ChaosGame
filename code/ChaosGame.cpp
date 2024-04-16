@@ -7,7 +7,11 @@ int main() {
 	RenderWindow MENU(vm, "Main Menu", Style::Default);
 	MainMenu mainMenu(MENU.getSize().x, MENU.getSize().y);
 	SettingsMenu settingsMenu(MENU.getSize().x, MENU.getSize().y);
-	
+	Texture BGtexture;
+	Sprite BGsprite;
+	BGtexture.loadFromFile("MMtexture.png");
+	BGsprite.setTexture(BGtexture);
+	BGsprite.setPosition(0, 0);
 	
 	vector<Vector2f> vertices;
 	vector<Vector2f> points;
@@ -91,12 +95,13 @@ int main() {
 					//check the item selected
 					int x = mainMenu.MainMenuSelected();
 					//if play is selected start the game loop
-					if (x == 0) {
-						menuMusic.pause();
-						gameMusic.play();
+					
 						///////////////////////////////////////////////////////////////////////////////
 						//							main game loop									 //
 						///////////////////////////////////////////////////////////////////////////////
+					if (x == 1) {
+						menuMusic.pause();
+						gameMusic.play();
 						while (play.isOpen()) {
 							
 							//look for new event?
@@ -104,6 +109,8 @@ int main() {
 							while (play.pollEvent(aevent)) {
 								if (aevent.type == Event::KeyPressed) {
 									if (aevent.key.code == Keyboard::Escape) {
+										vertices.clear();
+										points.clear();
 										play.close();
 									}
 								}
@@ -153,17 +160,21 @@ int main() {
 
 								//draw 
 								play.clear();
+								play.draw(BGsprite);
 								play.draw(prompt);
-								
+								if (vertices.size() == 3) {
+									prompt.move(2000, 2000);
+								}
+
 								for (size_t i = 0; i < vertices.size(); i++)
 								{
-									CircleShape circ1(3, 40);
+									CircleShape circ1(4, 60);
 									circ1.setPosition(Vector2f(vertices[i].x, vertices[i].y));
 									circ1.setFillColor(settingsMenu.getDotColor());
 									play.draw(circ1);
 								}
 								for (size_t i = 0; i < points.size(); i++) {
-									CircleShape circ(2, 30);
+									CircleShape circ(4, 50);
 									circ.setPosition(Vector2f(points[i].x, points[i].y));
 									circ.setFillColor(settingsMenu.getTriangleColor());
 									play.draw(circ);
@@ -176,9 +187,9 @@ int main() {
 						gameMusic.pause();
 						menuMusic.play();
 					}
-					//if x == 1
+					//if x == 2
 					//start the settings menu
-					else if (x == 1) {
+					else if (x == 2) {
 						while (settings.isOpen()) {
 							Event aevent;
 							while (settings.pollEvent(aevent)) {
@@ -247,7 +258,7 @@ int main() {
 
 
 					//exit option
-					else if (x == 2) {
+					else if (x == 3) {
 						MENU.close();
 						break;
 					}

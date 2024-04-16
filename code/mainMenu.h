@@ -11,7 +11,7 @@
 using namespace sf;
 using namespace std;
 
-const int MAX_MAIN_MENU = 3;
+const int MAX_MAIN_MENU = 4;
 
 class MainMenu {
 public:
@@ -38,7 +38,7 @@ private:
     Text mainMenu[MAX_MAIN_MENU];
     Texture MMtexture;
     Sprite spriteBackGround;
-    Text MMtext;
+    
 };
 
 
