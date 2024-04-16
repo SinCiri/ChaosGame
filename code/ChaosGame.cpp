@@ -1,5 +1,7 @@
 #include "SettingsMenu.h"
 #include "mainMenu.h"
+//Rami AL Obaidi
+//Melody Phillips
 
 int main() {
 
