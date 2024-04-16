@@ -162,8 +162,12 @@ int main() {
 								play.clear();
 								play.draw(BGsprite);
 								play.draw(prompt);
+
 								if (vertices.size() == 3) {
-									prompt.move(2000, 2000);
+									prompt.setPosition(2000, 2000);
+								}
+								else {
+									prompt.setPosition(400, 300);
 								}
 
 								for (size_t i = 0; i < vertices.size(); i++)
